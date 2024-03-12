@@ -1,132 +1,96 @@
-/*#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-int splits(char const *str, char c)
+//header
+#include "libft.h"
+//#include <stdio.h> // for printf
+static int	words_counter(char const *str, char c)
 {
-	int counter = 0;
-	while(*str)
+	int	counter;
+
+	counter = 0;
+	while (*str)
 	{
-		if(*str == c)
+		if (*str == c)
 			counter++;
 		str++;
 	}
-	return counter + 1;
+	return (counter + 1);
 }
 
-char **ft_split(char const *s, char c)
+static void	free_array(char	**arr, int i)
 {
+	int	j;
 
-	char **result_arr;
-
-	printf("There are %d splits\n", splits(s, c));
-	int words = splits(s, c);
-	result_arr = (char **)malloc(sizeof(char *) * (words + 1));
-	char const *begin = s;
-	int i = 0;
-	int j = 0;
-	while(i < words)
+	j = 0;
+	while (j < i)
 	{
-		if(*s == c)
-		{
-			result_arr[i] = (char *)malloc(sizeof(char) * (s - begin));
-			while(begin < s)
-			{
-				result_arr[i][j] = *begin;
-				begin++;
-				j++;
-			}
-			result_arr[i][j] = '\0';
-			begin = s + 1;
-			j = 0;
-			printf("Next string: %s\n", result_arr[i]);
-			i++;
-		}
-		s++;
+		free(arr[j]);
+		j++;
 	}
-	result_arr[words] = 0;
-
-	return result_arr;
+	free(arr);
 }
 
-
-int main()
+static const char	*del_search(char const *str, char c)
 {
-	char *str = "This,is,m,y,string";
-	char c = ',';
-
-
-	char **result_array = ft_split(str, c);
-
+	while (*str && *str == c)
+		str++;
+	return (str);
 }
 
-*/
-#include <stdlib.h>
-#include <stdio.h> // for printf
+static int	put_word(char const *left, char const *right, char **arr, int i)
+{
+	int	j;
 
-int splits(char const *str, char c) {
-    int counter = 0;
-    while (*str) {
-        if (*str == c)
-            counter++;
-        str++;
-    }
-    return counter + 1;
+	arr[i] = (char *)malloc(sizeof(char) * ((right - left) + 1));
+	if (arr[i] == NULL)
+	{
+		free_array(arr, i);
+		return (0);
+	}
+	j = 0;
+	while (left < right)
+		arr[i][j++] = *left++;
+	arr[i][j] = '\0';
+	return (1);
 }
 
-char **ft_split(char const *s, char c) {
-    int words = splits(s, c);
-    char **result_arr = (char **)malloc(sizeof(char *) * (words + 1));
-    if (result_arr == NULL)
-        return NULL;
+char	**ft_split(char const *s, char c)
+{
+	char		**result_arr;
+	int			i;
+	const char	*begin;
 
-    int i = 0;
-    while (*s) {
-        const char *begin = s;
-        // Find the beginning of the next word
-        while (*s && *s == c)
-            s++;
-        if (*s == '\0')
-            break; // Exit if the end of the string is reached
-        begin = s; // Update the beginning of the word
-        // Find the end of the current word
-        while (*s && *s != c)
-            s++;
-        int word_length = s - begin;
-        result_arr[i] = (char *)malloc(sizeof(char) * (word_length + 1));
-        if (result_arr[i] == NULL) {
-            // Free memory and return NULL if allocation fails
-            for (int j = 0; j < i; j++) {
-                free(result_arr[j]);
-            }
-            free(result_arr);
-            return NULL;
-        }
-        // Copy the word to the result array
-        int j = 0;
-        while (begin < s) {
-            result_arr[i][j++] = *begin++;
-        }
-        result_arr[i][j] = '\0'; // Null-terminate the string
-        i++;
-    }
-    result_arr[i] = NULL; // Null-terminate the result array
-    return result_arr;
+	result_arr = (char **)malloc(sizeof(char *) * (words_counter(s, c) + 1));
+	if (result_arr == NULL)
+		return (NULL);
+	i = 0;
+	while (*s)
+	{
+		s = del_search(s, c);
+		if (*s == '\0')
+			break ;
+		begin = s;
+		while (*s && *s != c)
+			s++;
+		if (put_word(begin, s, result_arr, i) == 0)
+			return (NULL);
+		i++;
+	}
+	result_arr[i] = NULL;
+	return (result_arr);
 }
 
-int main() {
-    const char *s = "Hello World! This is a test";
-    char **result = ft_split(s, ' ');
-    if (result != NULL) {
-        int i = 0;
-        while (result[i] != NULL) {
-            printf("Word %d: %s\n", i, result[i]);
-            free(result[i]);
-            i++;
-        }
-        free(result);
-    } else {
-        printf("Memory allocation failed.\n");
-    }
-    return 0;
-}
+// int main() {
+// 	const char *s = "  j  Hello World! This is a test ";
+// 	char **result = ft_split(s, ' ');
+// 	if (result != NULL) {
+// 		int i = 0;
+// 		while (result[i] != NULL) {
+// 			printf("Word %d: %s\n", i, result[i]);
+// 			free(result[i]);
+// 			i++;
+// 		}
+// 		free(result);
+// 	} else {
+// 		printf("Memory allocation failed.\n");
+// 	}
+// 	return 0;
+// }

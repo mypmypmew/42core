@@ -1,15 +1,18 @@
+//header
 #include "libft.h"
-#include <stdlib.h>
+//#include <stdio.h>
 
-int ft_lstsize(t_list *lst)
+size_t	ft_lstsize(t_list *lst)
 {
-	int i = 0;
-	while(lst != NULL)
+	size_t	i;
+
+	i = 0;
+	while (lst != NULL)
 	{
 		i++;
 		lst = lst->next;
 	}
-	return i;
+	return (i);
 }
 
 // int main() {

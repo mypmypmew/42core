@@ -1,63 +1,65 @@
-#include <stdio.h>
-#include <stdlib.h>
+//header
+#include "libft.h"
+//#include <stdio.h>
 
-int digit_counter(int n)
+static int	digit_counter(int n)
 {
-	int digits = 0;
+	int	digits;
 
-	while(n)
+	digits = 0;
+	while (n)
 	{
-		n = n/10;
+		n = n / 10;
 		digits++;
 	}
-
-	return digits;
+	return (digits);
 }
 
-char *ft_itoa(int n)
+static char	*putnb_to_str(char *str, int n, int sign, int len)
 {
-	char *str_num;
-
-	int sign = 1;
-	if(n == -2147483648)
+	if (sign < 0)
 	{
-		str_num = "-2147483648";
-		return str_num;
+		str[0] = '-';
+		str[len--] = n % 10 + '0';
+		n = n / 10;
 	}
+	while (n)
+	{
+		str[len--] = n % 10 + '0';
+		n = n / 10;
+	}
+	return (str);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str_num;
+	int		sign;
+	int		digits;
+	int		len;
+
+	sign = 1;
+	digits = digit_counter(n);
+	len = digits;
+	if (n == -2147483648)
+		return ("-2147483648");
 	if (n < 0)
+	{
 		sign = -1;
-	int digits = digit_counter(n);
-	int len;
-	if(sign < 0)
-	{
-		len = digits + 1;
-		n = -1 * n;
+		len += 1;
+		n = -n;
 	}
-	else
-		len = digits;
-
-	str_num = (char *)malloc((len + 1) * sizeof(char)); // Allocate space for the null terminator
-	if(str_num == NULL)
-		return NULL;
-	str_num[len--] = '\0'; // Set the null terminator at the end of the string
-	if(sign < 0)
-	{
-		str_num[0] = '-';
-		str_num[len--] = n % 10 + '0'; // Convert the digit to character and store it
-		n = n / 10;
-	}
-	while(n)
-	{
-		str_num[len--] = n % 10 + '0'; // Convert the digit to character and store it
-		n = n / 10;
-	}
-
-	return str_num;
+	str_num = (char *)malloc((len + 1) * sizeof(char));
+	if (str_num == NULL)
+		return (NULL);
+	str_num[len--] = '\0';
+	str_num = putnb_to_str(str_num, n, sign, len);
+	return (str_num);
 }
-int main()
-{
 
-	char *str = ft_itoa(-2147483648);
-	printf("The string is: %s", str);
-	return 0;
-}
+// int main()
+// {
+// 	char *str = ft_itoa(1474838);
+// 	printf("The string is: %s", str);
+// 	return 0;
+// }

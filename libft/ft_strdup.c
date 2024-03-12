@@ -1,5 +1,5 @@
 //header
-#include <stdio.h>
+//#include <stdio.h>
 #include "libft.h"
 
 static char	*ft_strcpy(char *str, char *dest)
