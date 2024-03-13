@@ -15,6 +15,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		end;
 	char	*trimmed_str;
 
+	if (ft_strlen(s1) == 0)
+		return ("");
 	start = 0;
 	end = ft_strlen(s1) - 1;
 	while (is_included(set, s1[start]))

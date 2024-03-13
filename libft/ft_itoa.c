@@ -31,18 +31,55 @@ static char	*putnb_to_str(char *str, int n, int sign, int len)
 	return (str);
 }
 
+static char	*min_int(char *dest)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = "-2147483648";
+	while (str[i])
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	while (dest[i])
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
+static char	*zero(char *dest)
+{
+	int	i;
+
+	i = 2;
+	dest[0] = '0';
+	dest[1] = '\0';
+	while (dest[i])
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
 char	*ft_itoa(int n)
 {
 	char	*str_num;
 	int		sign;
-	int		digits;
 	int		len;
 
 	sign = 1;
-	digits = digit_counter(n);
-	len = digits;
+	len = digit_counter(n);
+	str_num = (char *)malloc(11 * sizeof(char) + 1);
+	if (n == 0)
+		return (zero(str_num));
 	if (n == -2147483648)
-		return ("-2147483648");
+		return (min_int(str_num));
+	free(str_num);
 	if (n < 0)
 	{
 		sign = -1;
@@ -59,7 +96,7 @@ char	*ft_itoa(int n)
 
 // int main()
 // {
-// 	char *str = ft_itoa(1474838);
+// 	char *str = ft_itoa(-2147483648);
 // 	printf("The string is: %s", str);
 // 	return 0;
 // }

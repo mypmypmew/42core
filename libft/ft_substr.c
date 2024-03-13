@@ -12,6 +12,7 @@ static	char	*strncpy(char *dest, const char *src, size_t n)
 		dest[i] = src[i];
 		i++;
 	}
+	dest[i] = '\0';
 	while (i < n)
 	{
 		dest[i] = '\0';
@@ -24,6 +25,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub_str;
 
+	if (ft_strlen(s) == 0)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return ("");
 	sub_str = (char *) malloc((len + 1) * sizeof (char));
 	if (sub_str == NULL || s == NULL)
 		return (NULL);

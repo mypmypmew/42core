@@ -4,29 +4,24 @@
 
 char	*ft_strchr(const char *str, int c)
 {
+	char	a;
+
+	a = c;
+	if (*str == '\0' && a == '\0')
+		return ((char *) str);
+	if (*str == '\0')
+	{
+		if (a >= '0' && a <= 127)
+			return (NULL);
+		return ((char *)str);
+	}
 	while (*str != '\0')
 	{
-		if (*str == c)
+		if (*str == a)
 			return ((char *)str);
 		str++;
 	}
+	if ((*str == a))
+		return ((char *)str);
 	return (NULL);
 }
-
-// int main() {
-// 	//Test cases
-// 	const char *test_string = "Hello, World!";
-// 	int test_char = '!';
-
-// 	 //Find the first occurrence
-// 	char *result = ft_strchr(test_string, test_char);
-
-// 	//Print the result
-// 	if (result != NULL) {
-// 		printf("'%c at: %ld\n", (char)test_char, result - test_string);
-// 	} else {
-// 		printf("Character '%c' not found in the string\n", (char)test_char);
-// 	}
-
-// 	return 0;
-// }

@@ -2,13 +2,13 @@
 #include "libft.h"
 //#include <stdio.h>
 
-void	*ft_memcpy(void *dest, void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, int n)
 {
-	size_t	i;
+	int		i;
 	char	*char_dest;
 	char	*char_src;
 
-	if (dest == NULL)
+	if (dest == NULL && src == NULL)
 		return (NULL);
 	char_dest = (char *) dest;
 	char_src = (char *) src;
