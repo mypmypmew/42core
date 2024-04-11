@@ -1,0 +1,11 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/lynchsama/Desktop/42core/printf/ft_printf'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _ft_print_char, symObjAddr: 0x0, symBinAddr: 0x1000039F0, symSize: 0x2C }
+  - { offsetInCU: 0x48, offset: 0x48, size: 0x8, addend: 0x0, symName: _ft_print_char, symObjAddr: 0x0, symBinAddr: 0x1000039F0, symSize: 0x2C }
+  - { offsetInCU: 0x70, offset: 0x70, size: 0x8, addend: 0x0, symName: _ft_print_str, symObjAddr: 0x2C, symBinAddr: 0x100003A1C, symSize: 0x68 }
+  - { offsetInCU: 0xA6, offset: 0xA6, size: 0x8, addend: 0x0, symName: _print_digit, symObjAddr: 0x94, symBinAddr: 0x100003A84, symSize: 0x168 }
+  - { offsetInCU: 0x106, offset: 0x106, size: 0x8, addend: 0x0, symName: _ft_printf, symObjAddr: 0x1FC, symBinAddr: 0x100003BEC, symSize: 0x32C }
+  - { offsetInCU: 0x14B, offset: 0x14B, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x528, symBinAddr: 0x100003F18, symSize: 0x58 }
+...
